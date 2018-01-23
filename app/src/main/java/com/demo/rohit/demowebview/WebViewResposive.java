@@ -35,7 +35,7 @@ public class WebViewResposive extends Activity {
 
     AlertDialog.Builder altDialog;
 
-    private WebView wv;
+    private WebView FourZeroFour;
     private ProgressBar progress;
 
 
@@ -54,9 +54,10 @@ public class WebViewResposive extends Activity {
 
 
 
-        wv = (WebView) findViewById(R.id.webView);
+        FourZeroFour = (WebView) findViewById(R.id.webView);
         progress = (ProgressBar) findViewById(R.id.progressBar);
 
+        //Status bar color change
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -64,7 +65,7 @@ public class WebViewResposive extends Activity {
             window.setStatusBarColor(this.getResources().getColor(R.color.RED));
         }
 
-        checkPermission();
+        checkPermission(); // Permission Check for External Storage
 
       loadWebview();
 
@@ -78,23 +79,23 @@ public  void loadWebview(){
 
     System.out.println("connection : " + isConnected); // Network Check
 
-    if (isConnected == true) {
+    if (isConnected == true) {  //Network Check
         // Making the Web-View Responsive
         progress.setVisibility(View.VISIBLE);
-        wv.setVisibility(View.VISIBLE);
-        wv.getSettings().setJavaScriptEnabled(true);
-        wv.requestFocusFromTouch();
-        wv.setWebChromeClient(new WebChromeClient());
-        wv.getSettings().setAllowFileAccess(true);
-        wv.requestFocusFromTouch();
-        wv.setWebChromeClient(new WebChromeClient());
-        wv.getSettings().setAllowFileAccess(true);
-        wv.getSettings().setBuiltInZoomControls(true);
-        wv.getSettings().setSupportZoom(true);
-        wv.getSettings().setDisplayZoomControls(false);
-        wv.getSettings().setUseWideViewPort(true);
-        wv.getSettings().setLoadWithOverviewMode(true);
-        wv.setWebViewClient(new WebViewClient() {
+        FourZeroFour.setVisibility(View.VISIBLE);
+        FourZeroFour.getSettings().setJavaScriptEnabled(true);
+        FourZeroFour.requestFocusFromTouch();
+        FourZeroFour.setWebChromeClient(new WebChromeClient());
+        FourZeroFour.getSettings().setAllowFileAccess(true);
+        FourZeroFour.requestFocusFromTouch();
+        FourZeroFour.setWebChromeClient(new WebChromeClient());
+        FourZeroFour.getSettings().setAllowFileAccess(true);
+        FourZeroFour.getSettings().setBuiltInZoomControls(true);
+        FourZeroFour.getSettings().setSupportZoom(true);
+        FourZeroFour.getSettings().setDisplayZoomControls(false);
+        FourZeroFour.getSettings().setUseWideViewPort(true);
+        FourZeroFour.getSettings().setLoadWithOverviewMode(true);
+        FourZeroFour.setWebViewClient(new WebViewClient() {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -132,10 +133,10 @@ public  void loadWebview(){
 
         });
 
-            wv.loadUrl(intialUrl);
+            FourZeroFour.loadUrl(intialUrl);
 
-
-        wv.setDownloadListener(new DownloadListener() {
+//Download Fucntionality
+        FourZeroFour.setDownloadListener(new DownloadListener() {
             @Override
             public void onDownloadStart(String s, String s1, String s2, String s3, long l) { //url, userAgent,contentDescription, mimetype, contentLength
 
@@ -231,16 +232,14 @@ public  void Alert(String Alert){
 
     @Override
     public void onBackPressed() {
-        // adding urls for back press functionality
-
-        if(wv.canGoBack()){
-            wv.goBack();
-        }else{
+        if(FourZeroFour.canGoBack()){                        //Checking for urls in webview
+            FourZeroFour.goBack();
+        }else{                                               //Alert to user for Back Press to exit application
             if (doubleBackToExitPressedOnce) {
                 super.onBackPressed();
                 return;
             }
-            wv.loadUrl(intialUrl);
+            FourZeroFour.loadUrl(intialUrl);
             this.doubleBackToExitPressedOnce = true;
             Toast.makeText(this, "Please click back again to Exit", Toast.LENGTH_SHORT).show();
 
